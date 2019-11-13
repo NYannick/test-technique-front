@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import { connect } from 'react-redux'
+import { authRequestToken } from './store/actions/auth'
+import Spinner from './components/Spinner/Spinner'
 
-const App: React.FC = () => {
+const App: React.FC = (props: any) => {
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        setIsLoading(true)
+        props.dispatch(authRequestToken())
+    }, [])
+
+    useEffect(() => {
+        if (props.auth.data)
+            window.location.assign(`https://www.themoviedb.org/auth/access?request_token=${props.auth.data.request_token}`)
+        return () => {
+            setIsLoading(false)
+        }
+    }, [props.auth])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { isLoading ? <Spinner /> : null }
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state: any) => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps)(App);
