@@ -3,23 +3,25 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { SimpleImg } from 'react-simple-img'
-import './ItemMovies.scss'
+import './ItemMovie.scss'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             padding: theme.spacing(1),
-            color: theme.palette.text.secondary,
-            display: 'flex'
+            display: 'flex',
+            cursor: 'pointer'
         }
     })
 )
 
 const ItemMovies = (props: any) => {
     const classes = useStyles()
+    let history = useHistory()
     return (
         <Grid item xs={4}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} onClick={() => history.push(`/movies/${props.movie.id}`)}>
                 <div className='containerImg'>
                     <SimpleImg src={`https://image.tmdb.org/t/p/w200/${props.movie.poster_path}`} height={300} />
                 </div>

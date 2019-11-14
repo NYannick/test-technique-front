@@ -7,6 +7,7 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ListMovies from './containers/ListMovies/ListMovies'
+import MovieById from './containers/MovieById/MovieById'
 
 ReactDOM.render(
     <Provider store={store}>
@@ -15,6 +16,7 @@ ReactDOM.render(
                 <Switch>
                     <Route path='/' component={App} exact />
                     <Route path='/movies' component={ListMovies} exact />
+                    <Route path='/movies/:id' component={MovieById} exact />
                 </Switch>
             </div>
         </Router>

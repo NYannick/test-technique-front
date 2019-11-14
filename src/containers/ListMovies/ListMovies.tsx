@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './ListMovies.scss'
 import { authAccessToken } from '../../store/actions/auth'
-import { getMovieDiscover } from '../../store/actions/movies'
+import { getMoviesDiscover } from '../../store/actions/movies'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
-import ItemMovies from '../../components/ItemMovies/ItemMovies'
+import ItemMovie from '../../components/ItemMovie/ItemMovie'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import './ListMovies.scss'
 import Spinner from '../../components/Spinner/Spinner'
@@ -31,7 +31,7 @@ const ListMovies = (props: any) => {
 
     useEffect(() => {
         setIsLoading(true)
-        props.dispatch(getMovieDiscover())
+        props.dispatch(getMoviesDiscover())
     }, [])
 
     useEffect(() => {
@@ -44,12 +44,11 @@ const ListMovies = (props: any) => {
     }, [props.movies])
 
     const renderMovies = () => {
-        console.log(isLoading)
         return (
             <div className={classes.root}>
                 <Grid container item xs={12} spacing={3}>
                     {
-                        movies ? movies.map((movie: any) => <ItemMovies key={movie.id} movie={movie} />) : null
+                        movies ? movies.map((movie: any) => <ItemMovie key={movie.id} movie={movie} />) : null
                     }
                 </Grid>
             </div>

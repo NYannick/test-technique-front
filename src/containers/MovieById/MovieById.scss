@@ -1,0 +1,27 @@
+.containerMovie {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    .containerImgMovie {
+        width: 250px;
+        cursor: pointer;
+    }
+    .containerTextMovie {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .containerGenres {
+        display: flex;
+        align-items: baseline;
+        & p {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    }
+    .linkBack {
+        text-decoration: none;
+        display: contents;
+    }
+}
