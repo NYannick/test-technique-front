@@ -2,7 +2,8 @@ import {
     MOVIES_DISCOVER_REQUEST,
     MOVIES_DISCOVER_FAILURE,
     MOVIES_DISCOVER_SUCCESS,
-    MOVIE_BY_ID_SUCCESS
+    MOVIE_BY_ID_SUCCESS,
+    MOVIES_RECOMMENDATIONS_SUCCESS
 } from '../actions/types'
 
 export const movies = (state = {}, action: any) => {
@@ -27,6 +28,17 @@ export const movies = (state = {}, action: any) => {
 export const movieById = (state = {}, action: any) => {
     switch (action.type) {
         case MOVIE_BY_ID_SUCCESS:
+            return {
+                ...action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const moviesRecommendations = (state = {}, action: any) => {
+    switch (action.type) {
+        case MOVIES_RECOMMENDATIONS_SUCCESS:
             return {
                 ...action.payload
             }

@@ -1,3 +1,13 @@
 .containerMovies {
     padding: 30px;
+    .containerFilters {
+        display: flex;
+        align-items: flex-end;
+        .close {
+            cursor: pointer;
+            color: grey;
+            margin-left: 10px;
+            margin-bottom: 8px;
+        }
+    }
 }

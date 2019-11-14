@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import { SimpleImg } from 'react-simple-img'
 import './ItemMovie.scss'
 import { useHistory } from 'react-router-dom'
+import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,7 +24,7 @@ const ItemMovies = (props: any) => {
         <Grid item xs={4}>
             <Paper className={classes.paper} onClick={() => history.push(`/movies/${props.movie.id}`)}>
                 <div className='containerImg'>
-                    <SimpleImg src={`https://image.tmdb.org/t/p/w200/${props.movie.poster_path}`} height={300} />
+                    <SimpleImg src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w200${props.movie.poster_path}` : imgNotAvailable} height={300} />
                 </div>
                 <div className='containerText'>
                     <h4 className='marginTop'>{props.movie.title}</h4>

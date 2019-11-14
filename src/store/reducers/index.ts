@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
 
 import { auth } from './auth'
-import { movies, movieById } from './movies'
+import { movies, movieById, moviesRecommendations } from './movies'
 
 const rootReducer = combineReducers({
     auth,
     movies,
-    movieById
+    movieById,
+    moviesRecommendations
 })
 
 export default rootReducer

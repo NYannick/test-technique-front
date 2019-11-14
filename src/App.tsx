@@ -10,6 +10,7 @@ const App: React.FC = (props: any) => {
     useEffect(() => {
         setIsLoading(true)
         props.dispatch(authRequestToken())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

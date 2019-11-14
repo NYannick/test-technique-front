@@ -1,4 +1,3 @@
-import { authHeader } from '../helpers/authHeader'
 import axios, { AxiosRequestConfig } from 'axios'
 
 export const requestOptions = (
