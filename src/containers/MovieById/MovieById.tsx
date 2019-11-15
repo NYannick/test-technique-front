@@ -17,9 +17,6 @@ import moment from 'moment'
 
 const useStyles = makeStyles(() =>
     createStyles({
-        root: {
-            display: 'flex'
-        },
         paper: {
             padding: 10,
             marginRight: 10
@@ -77,7 +74,7 @@ const MovieById = (props: any) => {
                     ? <Spinner />
                     : (
                         <div className='movieAndRecommendation'>
-                            <Card className={classes.root}>
+                            <Card className='rootCard'>
                                 <Tooltip title={movie.homepage ? 'Visit Homepage' : ''}>
                                     <div
                                         className='containerImgMovie'
