@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button'
 import './MovieById.scss'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
+import moment from 'moment'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -90,7 +91,7 @@ const MovieById = (props: any) => {
                                     </div>
                                 </Tooltip>
                                 <div className='containerTextMovie'>
-                                    <h2>{`${movie.title} (${movie.release_date})`}</h2>
+                                    <h2>{`${movie.title} (${moment(movie.release_date).format('YYYY')})`}</h2>
                                     <p>{movie.overview}</p>
                                     <div className='containerGenres'>
                                         <p>Genres:</p>

@@ -6,6 +6,7 @@ import { SimpleImg } from 'react-simple-img'
 import './ItemMovie.scss'
 import { useHistory } from 'react-router-dom'
 import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,8 +28,8 @@ const ItemMovies = (props: any) => {
                     <SimpleImg src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w200${props.movie.poster_path}` : imgNotAvailable} height={300} />
                 </div>
                 <div className='containerText'>
-                    <h4 className='marginTop'>{props.movie.title}</h4>
-                    <p>{props.movie.release_date}</p>
+                    <h4 className='marginTop marginBottom'>{props.movie.title}</h4>
+                    <p className='marginTop colorGrey'>{moment(props.movie.release_date).format('LL')}</p>
                     <div>
                         <p className='overviewTruncate'>{props.movie.overview.length > 170 ? `${props.movie.overview.substring(0, 170)}...` : props.movie.overview}</p>
                     </div>
