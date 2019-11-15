@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './ListMovies.scss'
 import { authAccessToken } from '../../store/actions/auth'
-import { getMoviesDiscover, addItems } from '../../store/actions/movies'
+import { getMoviesDiscover, addItems, getList, deleteItems } from '../../store/actions/movies'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
 import ItemMovie from '../../components/ItemMovie/ItemMovie'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import './ListMovies.scss'
@@ -14,6 +15,12 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Close from '@material-ui/icons/Close'
 import InfiniteScroll from 'react-infinite-scroller'
+import { Link } from 'react-router-dom'
+import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
+import { SimpleImg } from 'react-simple-img'
+import Fab from '@material-ui/core/Fab'
+import Tooltip from '@material-ui/core/Tooltip'
+import classNames from 'classnames'
 import axios from 'axios'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,6 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         grid: {
             justifyContent: 'center'
+        },
+        card: {
+            marginRight: 10,
+            marginBottom: 10,
+            cursor: 'pointer',
+            minWidth: 135
         }
     })
 )
@@ -34,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ListMovies = (props: any) => {
     const [isLoading, setIsLoading] = useState(false)
     const [movies, setMovies] = useState<any[]>([])
+    const [moviesWatchList, setMoviesWacthList] = useState<any[]>([])
     const [sortBy, setSortBy] = useState('')
     const [page, setPage] = useState(1)
     const [hasMoreItems, setHasMoreItems] = useState(false)
@@ -72,6 +86,16 @@ const ListMovies = (props: any) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
+    useEffect(() => {
+        props.dispatch(getList(126095))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        if (props.moviesList)
+            setMoviesWacthList(props.moviesList.results)
+    }, [props.moviesList])
+
     // refacto - for now i don't update store
     const callGetMovieDiscover = () => {
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=8bc50bb087dba9d92cc48b7404da984a&page=${page}&sort_by=${sortBy ? sortBy : 'popularity.desc'}`)
@@ -86,10 +110,40 @@ const ListMovies = (props: any) => {
         setSortBy(event.target.value as string)
     }
 
+    // DRY
     const addItemMovie = (idList: number, idMovie: number) => {
         const items: any[] = []
         items.push({ media_type: 'movie', media_id: idMovie })
         props.dispatch(addItems(idList, items))
+        props.dispatch(getList(126095))
+    }
+
+    // DRY
+    const deleteItemMovie = (idList: number, idMovie: number) => {
+        const items: any[] = []
+        items.push({ media_type: 'movie', media_id: idMovie })
+        props.dispatch(deleteItems(idList, items))
+        props.dispatch(getList(126095))
+    }
+
+    const renderMyList = () => {
+        if (moviesWatchList) {
+            return moviesWatchList.map((movie: any) => {
+                return (
+                    <Card key={movie.id} className={classNames(classes.card, 'cardList')}>
+                        <Tooltip title="Delete from this list">
+                            <Fab className='deleteBtn' onClick={() => deleteItemMovie(126095, movie.id)}>
+                                <Close />
+                            </Fab>
+                        </Tooltip>
+                        <Link to={`/movies/${movie.id}`} className="linkRecommendations">
+                            <SimpleImg src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : imgNotAvailable} height={200} />
+                        </Link>
+                    </Card>
+                )
+            })
+        }
+        return isLoading ? <Spinner /> : null
     }
 
     const renderMovies = () => {
@@ -125,14 +179,20 @@ const ListMovies = (props: any) => {
                 isLoading
                     ? <Spinner />
                     : (
-                        <InfiniteScroll
-                            pageStart={0}
-                            loadMore={callGetMovieDiscover}
-                            hasMore={hasMoreItems}
-                            loader={<Spinner key='infinite-scroll-loader' />}
-                        >
-                            {renderMovies()}
-                        </InfiniteScroll>
+                        <div className='allMovies'>
+                            {moviesWatchList && moviesWatchList.length > 0 ? <p className='bold'>{props.moviesList.name}</p> : null}
+                            <div className='moviesList'>
+                                {renderMyList()}
+                            </div>
+                            <InfiniteScroll
+                                pageStart={0}
+                                loadMore={callGetMovieDiscover}
+                                hasMore={hasMoreItems}
+                                loader={<Spinner key='infinite-scroll-loader' />}
+                            >
+                                {renderMovies()}
+                            </InfiniteScroll>
+                        </div>
                     )
             }
         </div>

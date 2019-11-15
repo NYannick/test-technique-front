@@ -10,7 +10,6 @@ import './ItemMovie.scss'
 import { useHistory } from 'react-router-dom'
 import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
 import moment from 'moment'
-
 import classNames from 'classnames'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,9 +31,11 @@ const ItemMovies = (props: any) => {
     let history = useHistory()
     return (
         <Grid item xs={4} className={classNames(classes.grid, 'grid')}>
-            <Fab className='addBtn' onClick={() => props.addItemMovie(126095, props.movie.id)}>
-                <Add />
-            </Fab>
+            <Tooltip title="Add to my list">
+                <Fab className='addBtn' onClick={() => props.addItemMovie(126095, props.movie.id)}>
+                    <Add />
+                </Fab>
+            </Tooltip>
             <Paper className={classes.paper} onClick={() => history.push(`/movies/${props.movie.id}`)}>
                 <div className='containerImg'>
                     <SimpleImg src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w200${props.movie.poster_path}` : imgNotAvailable} height={300} />

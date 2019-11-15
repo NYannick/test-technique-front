@@ -10,4 +10,32 @@
             margin-bottom: 8px;
         }
     }
+    .allMovies {
+        display: flex;
+        flex-direction: column;
+        .moviesList {
+            display: flex;
+            margin: 20px 0;
+            margin-left: 8px;
+            width: 200px;
+        }
+        .bold {
+            font-weight: bold;
+            margin-left: 8px;
+            margin-bottom: 0;
+        }
+    }
+    .cardList {
+        position: relative;
+        .deleteBtn {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            color: #141414;
+            width: 36px;
+            height: 36px;
+            background: white;
+        }
+    }
 }

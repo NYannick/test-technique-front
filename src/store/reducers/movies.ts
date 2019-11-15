@@ -4,7 +4,9 @@ import {
     MOVIES_DISCOVER_SUCCESS,
     MOVIE_BY_ID_SUCCESS,
     MOVIES_RECOMMENDATIONS_SUCCESS,
-    MOVIE_ADD_ITEMS_SUCCESS
+    MOVIE_ADD_ITEMS_SUCCESS,
+    MOVIE_DELETE_ITEM_SUCCESS,
+    MOVIE_LIST_SUCCESS
 } from '../actions/types'
 
 export const movies = (state = {}, action: any) => {
@@ -55,12 +57,27 @@ const initialState = {
     status_code: 0
 }
 
-export const moviesList = (state = initialState, action: any) => {
+export const addMovieItems = (state = initialState, action: any) => {
     switch (action.type) {
         case MOVIE_ADD_ITEMS_SUCCESS:
             return {
                 ...action.payload,
                 results: [...state.results, ...action.payload.results]
+            }
+        default:
+            return state
+    }
+}
+
+export const moviesList = (state = {}, action: any) => {
+    switch (action.type) {
+        case MOVIE_LIST_SUCCESS:
+            return {
+                ...action.payload
+            }
+        case MOVIE_DELETE_ITEM_SUCCESS:
+            return {
+                ...action.payload
             }
         default:
             return state
