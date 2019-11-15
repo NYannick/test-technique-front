@@ -1,8 +1,29 @@
 .containerText {
     padding: 20px;
+    @media only screen and (max-width: 479px) {
+        display: none;
+    }
 }
 .containerImg {
     width: 200px;
+    position: relative;
+    .onlyMobile {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        & p:first-child {
+            font-weight: bold;
+        }
+        @media only screen and (max-width: 479px) {
+            display: block;
+        }
+    }
 }
 .marginTop {
     margin-top: 0;
@@ -12,4 +33,10 @@
 }
 .colorGrey {
     color: grey;
+}
+.grid {
+    width: 480px;
+    @media only screen and (max-width: 479px) {
+        width: auto;
+    }
 }

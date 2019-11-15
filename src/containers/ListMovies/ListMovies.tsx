@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
         formControl: {
             margin: theme.spacing(1),
             minWidth: 120
+        },
+        grid: {
+            justifyContent: 'center'
         }
     })
 )
@@ -86,7 +89,7 @@ const ListMovies = (props: any) => {
     const renderMovies = () => {
         return (
             <div className={classes.root}>
-                <Grid container item xs={12} spacing={3}>
+                <Grid container item xs={12} spacing={3} className={classes.grid}>
                     {
                         movies ? movies.map((movie: any) => <ItemMovie key={movie.id} movie={movie} />) : null
                     }

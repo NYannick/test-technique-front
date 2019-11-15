@@ -8,12 +8,18 @@ import { useHistory } from 'react-router-dom'
 import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
 import moment from 'moment'
 
+import classNames from 'classnames'
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             padding: theme.spacing(1),
             display: 'flex',
             cursor: 'pointer'
+        },
+        grid: {
+            maxWidth: 'none',
+            flexBasis: 'initial'
         }
     })
 )
@@ -22,10 +28,14 @@ const ItemMovies = (props: any) => {
     const classes = useStyles()
     let history = useHistory()
     return (
-        <Grid item xs={4}>
+        <Grid item xs={4} className={classNames(classes.grid, 'grid')}>
             <Paper className={classes.paper} onClick={() => history.push(`/movies/${props.movie.id}`)}>
                 <div className='containerImg'>
                     <SimpleImg src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w200${props.movie.poster_path}` : imgNotAvailable} height={300} />
+                    <div className='onlyMobile'>
+                        <p>{props.movie.title}</p>
+                        <p>{moment(props.movie.release_date).format('YYYY')}</p>
+                    </div>
                 </div>
                 <div className='containerText'>
                     <h4 className='marginTop marginBottom'>{props.movie.title}</h4>
