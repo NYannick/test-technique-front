@@ -36,6 +36,17 @@
 }
 .grid {
     width: 480px;
+    position: relative;
+    .addBtn {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        color: white;
+        width: 36px;
+        height: 36px;
+        background: #141414;
+    }
     @media only screen and (max-width: 479px) {
         width: auto;
     }

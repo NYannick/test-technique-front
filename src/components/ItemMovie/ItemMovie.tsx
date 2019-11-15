@@ -3,6 +3,9 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { SimpleImg } from 'react-simple-img'
+import Add from '@material-ui/icons/Add'
+import Fab from '@material-ui/core/Fab'
+import Tooltip from '@material-ui/core/Tooltip'
 import './ItemMovie.scss'
 import { useHistory } from 'react-router-dom'
 import imgNotAvailable from '../../images/sorry-image-not-available.jpg'
@@ -29,6 +32,9 @@ const ItemMovies = (props: any) => {
     let history = useHistory()
     return (
         <Grid item xs={4} className={classNames(classes.grid, 'grid')}>
+            <Fab className='addBtn' onClick={() => props.addItemMovie(126095, props.movie.id)}>
+                <Add />
+            </Fab>
             <Paper className={classes.paper} onClick={() => history.push(`/movies/${props.movie.id}`)}>
                 <div className='containerImg'>
                     <SimpleImg src={props.movie.poster_path ? `https://image.tmdb.org/t/p/w200${props.movie.poster_path}` : imgNotAvailable} height={300} />

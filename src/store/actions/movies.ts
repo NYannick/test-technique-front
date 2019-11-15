@@ -1,7 +1,8 @@
 import {
     MOVIES_DISCOVER_SUCCESS,
     MOVIE_BY_ID_SUCCESS,
-    MOVIES_RECOMMENDATIONS_SUCCESS
+    MOVIES_RECOMMENDATIONS_SUCCESS,
+    MOVIE_ADD_ITEMS_SUCCESS
 } from './types'
 import { requestOptions } from '../../services/user'
 import axios from 'axios'
@@ -62,3 +63,24 @@ export const getMoviesRecommendations = (id: number) => {
             })
     }
 }
+
+export const addItems = (id: number, items: any) => {
+    const user = JSON.parse(localStorage.getItem('userAccessToken') || '')
+    return (dispatch: any) => {
+        const options = requestOptions(
+            'post',
+            `/4/list/${id}/items`,
+            user.data.access_token,
+            { api_key }
+        )
+        axios({ ...options, data: { items }})
+            .then(res => {
+                dispatch({
+                    type: MOVIE_ADD_ITEMS_SUCCESS,
+                    payload: res.data
+                })
+            })
+    }
+}
+
+export const getList

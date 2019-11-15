@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './ListMovies.scss'
 import { authAccessToken } from '../../store/actions/auth'
-import { getMoviesDiscover } from '../../store/actions/movies'
+import { getMoviesDiscover, addItems } from '../../store/actions/movies'
 import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import ItemMovie from '../../components/ItemMovie/ItemMovie'
@@ -86,12 +86,18 @@ const ListMovies = (props: any) => {
         setSortBy(event.target.value as string)
     }
 
+    const addItemMovie = (idList: number, idMovie: number) => {
+        const items: any[] = []
+        items.push({ media_type: 'movie', media_id: idMovie })
+        props.dispatch(addItems(idList, items))
+    }
+
     const renderMovies = () => {
         return (
             <div className={classes.root}>
                 <Grid container item xs={12} spacing={3} className={classes.grid}>
                     {
-                        movies ? movies.map((movie: any) => <ItemMovie key={movie.id} movie={movie} />) : null
+                        movies ? movies.map((movie: any) => <ItemMovie key={movie.id} movie={movie} addItemMovie={addItemMovie} />) : null
                     }
                 </Grid>
             </div>
@@ -136,7 +142,8 @@ const ListMovies = (props: any) => {
 const mapStateToProps = (state: any) => {
     return {
         auth: state.auth,
-        movies: state.movies
+        movies: state.movies,
+        moviesList: state.moviesList
     }
 }
 

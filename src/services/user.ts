@@ -46,7 +46,7 @@ export const createAccessToken = (accessToken: string, requestToken: string) => 
 
     return axios(options)
         .then(user => {
-            console.log(user)
+            localStorage.setItem('userAccessToken', JSON.stringify(user))
             return user
         })
 }
