@@ -17,7 +17,10 @@
             display: flex;
             margin: 20px 0;
             margin-left: 8px;
-            width: 200px;
+            overflow-x: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
         .bold {
             font-weight: bold;

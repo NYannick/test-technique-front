@@ -128,9 +128,9 @@ const ListMovies = (props: any) => {
 
     const renderMyList = () => {
         if (moviesWatchList) {
-            return moviesWatchList.map((movie: any) => {
+            return moviesWatchList.map((movie: any, index: number) => {
                 return (
-                    <Card key={movie.id} className={classNames(classes.card, 'cardList')}>
+                    <Card key={index} className={classNames(classes.card, 'cardList')}>
                         <Tooltip title="Delete from this list">
                             <Fab className='deleteBtn' onClick={() => deleteItemMovie(126095, movie.id)}>
                                 <Close />
