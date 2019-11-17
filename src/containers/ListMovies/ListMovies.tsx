@@ -136,8 +136,8 @@ const ListMovies = (props: any) => {
                                 <Close />
                             </Fab>
                         </Tooltip>
-                        <Link to={`/movies/${movie.id}`} className="linkRecommendations">
-                            <SimpleImg src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : imgNotAvailable} height={200} />
+                        <Link to={`/movies/${movie.id}`}>
+                            <SimpleImg src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : imgNotAvailable} height={200} className='imgList' />
                         </Link>
                     </Card>
                 )
