@@ -16,7 +16,7 @@ export const authRequestToken = () => {
 }
 
 export const authAccessToken = (requestToken: string) => {
-    return (dispatch: any) => {
+    return async (dispatch: any) => {
         createAccessToken(accessToken, requestToken)
             .then(user => {
                 dispatch({

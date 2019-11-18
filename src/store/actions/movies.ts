@@ -8,13 +8,13 @@ import {
 } from './types'
 import { requestOptions } from '../../services/user'
 import axios from 'axios'
+import { authHeader } from '../../helpers/authHeader'
 
 const accessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YmM1MGJiMDg3ZGJhOWQ5MmNjNDhiNzQwNGRhOTg0YSIsInN1YiI6IjVkYzQzMjQ4OGQyMmZjMDAxNDNlMmFiZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XRBKBn2cnFW_HJP7oJlsXMfWAn9-V3_rx3nT1chvPIQ'
 const api_key = '8bc50bb087dba9d92cc48b7404da984a'
-const user = JSON.parse(localStorage.getItem('userAccessToken') || '')
 
 export const getMoviesDiscover = (sortBy: string, page: number) => {
-    return (dispatch: any) => {
+    return async (dispatch: any) => {
         const options = requestOptions(
             'get',
             '/3/discover/movie',
@@ -72,7 +72,7 @@ export const addItems = (id: number, items: any) => {
         const options = requestOptions(
             'post',
             `/4/list/${id}/items`,
-            user.data.access_token,
+            authHeader(),
             { api_key }
         )
         axios({ ...options, data: { items }})
@@ -90,7 +90,7 @@ export const deleteItems = (id: number, items: any) => {
         const options = requestOptions(
             'delete',
             `/4/list/${id}/items`,
-            user.data.access_token,
+            authHeader(),
             { api_key }
         )
         axios({ ...options, data: { items }})
@@ -103,12 +103,12 @@ export const deleteItems = (id: number, items: any) => {
     }
 }
 
-export const getList = (id: number) => {
-    return (dispatch: any) => {
+export const getList = (id: number, accessToken: string) => {
+    return async (dispatch: any) => {
         const options = requestOptions(
             'get',
             `/4/list/${id}`,
-            user.data.access_token,
+            accessToken,
             { api_key }
         )
         axios(options)

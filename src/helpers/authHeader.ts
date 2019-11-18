@@ -1,5 +1,5 @@
 export const authHeader = () => {
-    const user = JSON.parse(localStorage.getItem('user') || '')
-    if (user && user.data.request_token) return { 'Authorization': 'Bearer ' + user.token }
+    const user = JSON.parse(localStorage.getItem('userAccessToken') || '')!
+    if (user && user.data.access_token) return user.data.access_token
     else return {}
 }

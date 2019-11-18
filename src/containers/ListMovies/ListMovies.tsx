@@ -49,6 +49,7 @@ const ListMovies = (props: any) => {
     const [movies, setMovies] = useState<any[]>([])
     const [moviesWatchList, setMoviesWacthList] = useState<any[]>([])
     const [sortBy, setSortBy] = useState('')
+    const [accessToken, setAccessToken] = useState('')
     const [page, setPage] = useState(1)
     const [hasMoreItems, setHasMoreItems] = useState(false)
     const user = JSON.parse(localStorage.getItem('user') || '')
@@ -87,9 +88,13 @@ const ListMovies = (props: any) => {
     }, [page])
 
     useEffect(() => {
-        props.dispatch(getList(126095))
+        if (props.auth.data) {
+            const token = props.auth.data.access_token
+            setAccessToken(token)
+            props.dispatch(getList(126095, token))
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [props.auth.data])
 
     useEffect(() => {
         if (props.moviesList)
@@ -115,7 +120,7 @@ const ListMovies = (props: any) => {
         const items: any[] = []
         items.push({ media_type: 'movie', media_id: idMovie })
         props.dispatch(addItems(idList, items))
-        props.dispatch(getList(126095))
+        props.dispatch(getList(126095, accessToken))
     }
 
     // DRY
@@ -123,7 +128,7 @@ const ListMovies = (props: any) => {
         const items: any[] = []
         items.push({ media_type: 'movie', media_id: idMovie })
         props.dispatch(deleteItems(idList, items))
-        props.dispatch(getList(126095))
+        props.dispatch(getList(126095, accessToken))
     }
 
     const renderMyList = () => {
